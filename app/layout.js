@@ -1,25 +1,41 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
+import ReactLenis from "lenis/react";
+import Header from "./App_chunks/header";
+import { Pacifico } from "next/font/google";
+import Backtotop from "./App_chunks/Backtotop";
 export const metadata = {
-  title: "Protfolio Revamp",
+  title: "Protfolio Faheem",
   description: "Portfolio",
 };
+
+const pacifico = Pacifico({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pacifico", // 👈 important: set a CSS variable
+});
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
         <link
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,300,400&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,700,800,900&f[]=satoshi@300,301,400,401,500,501,700,701,900&f[]=work-sans@100,101,200,201,300,301,400,401,500,501,600,601,700,701,800,801,900&display=swap"
           rel="stylesheet"
         ></link>
-        
-
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={` relative antialiased ${pacifico.variable}`}>
+        <Backtotop />
+        <ReactLenis
+          root
+          options={{
+            wheelMultiplier: 0.6, // default is 1, lower = slower scroll
+            smooth: true,
+          }}
+        >
+          <Header />
+          {children}
+        </ReactLenis>
+      </body>
     </html>
   );
 }

@@ -1,62 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;700;800&family=Rubik:wght@300;400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&family=Quicksand:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;700;800&family=Rubik:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&family=Quicksand:wght@300;400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* styles.css */
- 
-  
- body{
-      background-color: white;
-    }
-@keyframes down_top{
-  0%{
-    transform: rotateX(-70deg);
-  }
-  100%{
-    opacity: 1;
-    transform: rotateX(0deg) translateY(-20px);
-  }
-}
 
- 
-
-
-
-.cybox{
-  transition: .5s;
-  cursor: pointer;
+body {
+  background-color: 	#FAF5FF;
+  position: relative;
 }
-.usabilitybox{
-  transition: .5s;
-  cursor: pointer;
-}
-.flipkartbox{
-  transition: .5s;
-  cursor: pointer;
-}
-.iphonebox{
-  transition: .5s;
-  cursor: pointer;
-}
-
-.cybox:hover{
-  animation: upDown 1s forwards;
-  perspective: 800px;
-  perspective-origin: center;
-}
-
-.usabilitybox:hover{
-  animation: upDown 1s forwards;
-  perspective: 800px;
-  perspective-origin: center;
-}
-
-.flipkartbox:hover{
-  animation: upDown 1s forwards;
-  perspective: 800px;
-  perspective-origin: center;
-}
-
- 
