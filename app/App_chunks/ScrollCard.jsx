@@ -67,26 +67,29 @@ export default function ScrollCardProject() {
   };
 
   return (
-    <section ref={sectionRef} style={{ backgroundColor: bgColor }}>
-      <div ref={container}>
-        {projects.map((project, i) => {
-          const targetScale = 1 - (projects.length - i) * 0.05;
-          return (
-            <Card
-              key={`p_${i}`}
-              i={i}
-              url={project?.link}
-              src={project?.src}
-              title={project?.title}
-              color={project?.color}
-              description={project?.description}
-              progress={scrollYProgress}
-              range={[i * 0.25, 1]}
-              targetScale={targetScale}
-              onVisible={handleBgChange}
-            />
-          );
-        })}
+    <section >
+      
+      <div ref={sectionRef} style={{ backgroundColor: bgColor }}>
+        <div ref={container}>
+          {projects.map((project, i) => {
+            const targetScale = 1 - (projects.length - i) * 0.05;
+            return (
+              <Card
+                key={`p_${i}`}
+                i={i}
+                url={project?.link}
+                src={project?.src}
+                title={project?.title}
+                color={project?.color}
+                description={project?.description}
+                progress={scrollYProgress}
+                range={[i * 0.25, 1]}
+                targetScale={targetScale}
+                onVisible={handleBgChange}
+              />
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -139,11 +142,7 @@ export const Card = ({
           <div className="w-[40%] relative top-[10%]">
             <p className="text-sm">{description}</p>
             <span className="flex items-center gap-2 pt-2">
-              <a
-                href="#"
-                target="_blank"
-                className="underline cursor-pointer"
-              >
+              <a href="#" target="_blank" className="underline cursor-pointer">
                 Visit
               </a>
               <svg

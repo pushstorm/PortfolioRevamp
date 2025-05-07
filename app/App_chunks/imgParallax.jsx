@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./styles.css";
 
-import { useTransform, useScroll, motion } from "framer-motion";
+import { useTransform, useScroll, motion } from "motion/react";
 
 const images = [
   "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/26f30099043947.5ee9fcbdae75c.jpg",

@@ -1,8 +1,8 @@
 "use client";
-import React, { forwardRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React from "react";
+import { motion } from "motion/react";
 import "./styles.css";
-const hero = forwardRef((props, ref) => {
+const Hero = () => {
   const heroText = ["Crafting", "aesthetic", "Design"];
   const headAnimation = {
     initial: { scale: 0.6, opacity: 0, x: 700 },
@@ -30,23 +30,25 @@ const hero = forwardRef((props, ref) => {
       },
     }),
   };
-  
+ 
   return (
     <React.Fragment>
+      { /* 64 px  */}
       <div
-        className={`w-full relative overflow-hidden lg:h-[38vh] xl:h-[calc(100vh-64px)]`}
-        ref={ref}
+        className={`w-full relative overflow-hidden lg:h-[38vh] xl:h-[calc(100vh-50px)]`} 
+        id="heroSectionBG"
       >
-        <div className="container  grid grid-rows-3 mt-10 h-full">
+       
+        <div className="container  grid grid-rows-3 mt-3 h-full">
           {heroText.map((text, idx) => (
             <motion.h1
               key={idx}
               variants={headAnimation}
               initial="initial"
               animate="animate"
-              className={`uppercase perspective font-[700] font-Cabinet text-[13.3vw] lg:text-[16vw] xl:text-[14.4vw] xxl:text-[13.3vw] leading-[.85] 
-      ${idx === 1 ? "mx-auto w-fit" : ""} 
-      ${idx === heroText.length - 1 ? "ml-auto text-right" : ""}`}
+              className={`uppercase perspective font-[700] font-Cabinet text-[13.3vw] lg:text-[16vw] xl:text-[15vw] xxl:text-[13.3vw] leading-[.85] 
+                ${idx === 1 ? "mx-auto w-fit" : ""} 
+                ${idx === heroText.length - 1 ? "ml-auto text-right" : ""}`}
             >
               {text.split("").map((char, index) => (
                 <motion.span
@@ -75,6 +77,6 @@ const hero = forwardRef((props, ref) => {
       </div>
     </React.Fragment>
   );
-});
+}
 
-export default hero;
+export default Hero;

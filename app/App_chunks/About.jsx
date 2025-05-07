@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 const About = () => {
   const para =
     "I am a passionate frontend developer focused on creating seamless digital experiences. With clean code, creative design, and attention to detail, I bring ideas to life. I strive to blend aesthetics with functionality, ensuring every project stands out and delivers an engaging user experience.";

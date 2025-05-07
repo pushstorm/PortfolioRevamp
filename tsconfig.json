@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/App_chunks/heroBG.jsx"  ],
   "exclude": [
     "node_modules"
   ]

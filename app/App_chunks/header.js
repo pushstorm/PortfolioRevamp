@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, useRef, useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import "./styles.css";
 import { ArrowUpRight } from "@phosphor-icons/react";
 
@@ -47,7 +47,7 @@ const Header = forwardRef((props, ref) => {
   }, [isActive]);
   return (
     <>
-      <div className="flex w-full  navBar justify-center py-4" ref={ref}>
+      <div className="flex headNav w-full relative z-10 navBar justify-center py-4" ref={ref}>
         <motion.div className=" flex justify-between container  items-center specialContainer relative z-[12]  md:bg-transparent md:static  ">
           <AnimatePresence
             mode="wait"

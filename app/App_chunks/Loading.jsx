@@ -1,7 +1,7 @@
 "use client";
 //Loading component completed
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const Loading = ({ setIsLoading }) => {
   const [progress, setProgress] = useState(0);
@@ -43,7 +43,7 @@ const Loading = ({ setIsLoading }) => {
   return (
     <motion.div
       className="fixed top-0 left-0 w-screen h-screen grid grid-cols-2 z-[9999999]"
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
     >
       {/* Progress Bar */}
       {progress < 100 && (
@@ -51,7 +51,7 @@ const Loading = ({ setIsLoading }) => {
           className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[2px] bg-white"
           initial={{ height: "0%" }}
           animate={{ height: `${progress}%` }}
-          transition={{ duration: 0.3, ease: [0, 0, 0.2, 1] }}
+          transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
         >
           <div className="absolute left-1/2 -translate-x-1/2 bottom-full text-white text-4xl font-bold">
             {progress}%
@@ -63,7 +63,7 @@ const Loading = ({ setIsLoading }) => {
       <motion.div
         initial={{ scaleX: 1 }}
         animate={{ scaleX: progress == 100 ? 0 : 1 }}
-        transition={{ duration: 1.3, ease: [0.175, 0.885, 0.32, 1.1] }}
+        transition={{ duration: 1.3, ease: [0.19, 1, 0.22, 1] }}
         className="h-full w-full bg-black origin-left"
       />
 
@@ -71,7 +71,7 @@ const Loading = ({ setIsLoading }) => {
       <motion.div
         initial={{ scaleX: 1 }}
         animate={{ scaleX: progress == 100 ? 0 : 1 }}
-        transition={{ duration: 1.3, ease: [0.175, 0.885, 0.32, 1.1] }}
+        transition={{ duration: 1.3, ease: [0.19, 1, 0.22, 1] }}
         className="h-full w-full bg-black origin-right"
       />
     </motion.div>

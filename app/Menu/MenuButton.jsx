@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import './menuButton.css'
 export default function Button({ isActive, toggleMenu }) {
   return (

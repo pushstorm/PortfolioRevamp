@@ -1,7 +1,7 @@
 'use client'
 import { VelocityScroll } from "../../components/magicui/scroll-based-velocity";
 import { StarFour } from "@phosphor-icons/react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 export function Marquee() {
   const TechStack = ["Next", "Lenis", "Tailwlind", "Motion", "React"];
   return (

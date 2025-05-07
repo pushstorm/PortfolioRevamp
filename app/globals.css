@@ -9,4 +9,6 @@
 body {
   background-color: 	#FAF5FF;
   position: relative;
+  overflow-x: hidden;
+
 }

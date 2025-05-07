@@ -88,7 +88,7 @@ const Services = () => {
 
   return (
     <div ref={containerRef} className="">
-      <div className="grid py-32 overflow-hidden  grid-cols-2 gap-32  container relative">
+      <div className="grid py-32 grid-cols-2 gap-32  container relative">
         <div className="w-[1px] bg-black h-full absolute top-0 left-1/2 -translate-x-1/2" />
         {/* Left Text Section */}
         <div className="sticky pt-14 pb-24 h-fit top-0 left-0">
@@ -124,7 +124,7 @@ const Services = () => {
         </div>
 
         {/* Right Animated List */}
-        <div className=" py-14">
+        <div className=" py-14 overflow-hidden">
           {services.map((service, idx) =>
             service === "space" ? (
               <div key={idx} className="my-10 service-text w-full h-1 relative">

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { links, footerLinks } from "./data";
 import { perspective, slideIn } from "./anime";
 import { ArrowRight } from "@phosphor-icons/react";
@@ -10,7 +10,7 @@ export default function NavCard() {
   const [isHoverd, setIsHoverd] = useState(null);
   return (
     <>
-      <div className={`nav z-[1]`}>
+      <div className={`nav z-[99]`}>
         <div className={`body`}>
           {links.map((link, i) => {
             const { title, href } = link;
