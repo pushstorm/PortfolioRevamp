@@ -4,28 +4,22 @@ export const links = [
         href: "/"
     },
     {
-        title: "About us",
-        href: "/About-us"
+        title: "About",
+        href: "#About"
     },
     {
-        title: "Services",
+        title: "Skills",
         href: "/"
     },
+
     {
-        title: "Careers",
-        href: "/"
-    },
-    {
-        title: "Contact us",
+        title: "Contact",
         href: "/"
     }
 ]
 
 export const footerLinks = [
-    {
-        title: "Facebook",
-        href: "/"
-    },
+    
     {
         title: "LinkedIn",
         href: "/"
@@ -34,8 +28,5 @@ export const footerLinks = [
         title: "Instagram",
         href: "/"
     },
-    {
-        title: "Twitter",
-        href: "/"
-    }
+   
 ]

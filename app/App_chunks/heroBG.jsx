@@ -111,7 +111,7 @@ const HeroBG = () => {
               }}
               transition={{
                 duration: 7,
-                ease: "easeInOut",
+
                 repeat: Infinity,
                 repeatType: "loop",
                 easings: [0.6, 0.04, 0.98, 0.335],
@@ -194,7 +194,6 @@ const HeroBG = () => {
               }}
               transition={{
                 duration: 7,
-                ease: "easeInOut",
                 repeat: Infinity,
                 repeatType: "loop",
                 easings: [0.6, 0.04, 0.98, 0.335],

@@ -9,10 +9,12 @@ import {
   motion,
   useScroll,
   useTransform,
+  AnimatePresence,
 } from "motion/react";
-import { ArrowsOutSimple, Check, X } from "@phosphor-icons/react";
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowsOutSimple, ArrowUpRight, Check, X } from "@phosphor-icons/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import BlurOverlay from "./blurOverlay";
 gsap.registerPlugin(ScrollTrigger);
 export default function HorizontalScroll(): JSX.Element {
   const ulRef = useRef<HTMLUListElement | null>(null);
@@ -87,37 +89,37 @@ export default function HorizontalScroll(): JSX.Element {
     //   }
     // });
   }, []);
+
   const [isExpand, setIsExpand] = useState(false);
   const textRef = useRef(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLDivElement | null>(null);
- 
+
   useEffect(() => {
-   
     gsap.fromTo(
       headingRef.current,
       {
-        left: '50%',
+        left: "50%",
         xPercent: -50,
       },
       {
-        left: '0%',
+        left: "0%",
         xPercent: 0, // end aligned to left
-        ease: 'power3.out',
+        ease: "power3.out",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'start center',   // when heading enters from bottom
-          end: 'start end',     // when heading reaches center
-          scrub: true,
+          start: "start center",
+          end: "start end",
+          scrub: 1.25,
         },
       }
     );
   }, []);
-  
+
   return (
     <div ref={containerRef}>
-      <div  className="container">
-        <div  className="pt-14 h-[130px] relative mb-5 ">
+      <div className="container">
+        <div className="pt-14 h-[130px] relative mb-5 ">
           <motion.h1
             ref={headingRef}
             className="text-3xl absolute left-1/2 lg:text-5xl  xl:text-6xl font-[500] "
@@ -133,7 +135,7 @@ export default function HorizontalScroll(): JSX.Element {
       >
         <div className="sticky top-0 w-screen bg-fuchsia-200">
           <div className="overflow-hidden">
-            <ul
+<ul
               ref={ulRef}
               className="flex bg-yellow-300"
               style={{
@@ -145,93 +147,103 @@ export default function HorizontalScroll(): JSX.Element {
                 <li key={idx} className="h-screen w-screen relative p-10">
                   <div
                     className={`w-full h-full flex flex-col transition-all duration-300 ease-[cubic-bezier(0.175, 0.885, 0.32, 1.1)]  ${
-                      isExpand ? "justify-start" : "justify-center"
+                      isExpand ? "justify-center" : "justify-center"
                     }  relative items-center`}
                   >
-                    <div className="relative">
-                      {" "}
-                      <motion.img
-                        src={project.src}
-                        className={`w-[380px]  ${
-                          isExpand ? "xl:w-[75vw]" : "xl:w-[80vw]"
-                        } rounded-xl transition-all duration-300 ease-[cubic-bezier(0.175, 0.885, 0.32, 1.1)] `}
-                        alt="image"
-                      />
-                      <motion.div
-                        layout
-                        animate={{
-                          width: isExpand ? 400 : 200,
-                          height: isExpand ? 200 : 60,
-                          top: isExpand ? "85%" : "95%",
-                        }}
-                        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                        className={`
+                    <div className="">
+                      <div className="relative ">
+                        <motion.img
+                          src={project.src}
+                          className={`w-[380px] xl:w-[80vw] rounded-xl transition-all duration-300 ease-[cubic-bezier(0.175, 0.885, 0.32, 1.1)] `}
+                          alt={project.title}
+                        />
+                        <AnimatePresence mode="wait">
+                          {isExpand && <BlurOverlay />}
+                        </AnimatePresence>
+                        <div className="flex absolute bottom-5 right-5 gap-5">
+                          <motion.div
+                            layout
+                            animate={{
+                              width: isExpand ? 400 : 200,
+                              height: isExpand ? 200 : 60,
+                            }}
+                            transition={{
+                              duration: 0.8,
+                              ease: [0.19, 1, 0.22, 1],
+                            }}
+                            className={`
                         ${
-                          isExpand ? "bg-white/30" : "bg-white"
+                          isExpand ? "bg-white" : "bg-white"
                         } backdrop-filter backdrop-blur-lg 
-                          absolute  left-1/2 !-translate-x-1/2
                           px-5 py-2 rounded-2xl
                         `}
-                      >
-                        <div
-                          className={`flex items-center gap-4 justify-between`}
-                        >
-                          <h2
-                            className={` font-semibold relative text-slate-950  text-2xl`}
                           >
-                            {project.title}
-                          </h2>
-                          <button onClick={() => setIsExpand(!isExpand)}>
-                            <motion.div
-                              animate={{ rotate: isExpand ? 180 : 0 }}
-                              transition={{
-                                ease: [0.19, 1, 0.22, 1],
-                                delay: 0.16,
-                              }}
-                              className={`w-10 h-10 flex justify-center items-center ${
-                                isExpand
-                                  ? "bg-slate-200/50 hover:bg-red-400"
-                                  : "bg-slate-200 hover:bg-slate-300"
-                              } rounded-full`}
+                            <div
+                              className={`flex items-center gap-4 justify-between`}
                             >
-                              {isExpand ? (
-                                <X className="text-xl" />
-                              ) : (
-                                <ArrowsOutSimple className="text-xl" />
-                              )}
-                            </motion.div>
+                              <h2
+                                className={` font-semibold ${
+                                  isExpand ? "text-3xl" : "text-xl"
+                                } relative text-slate-950`}
+                              >
+                                {project.title}
+                              </h2>
+                              <button onClick={() => setIsExpand(!isExpand)}>
+                                <motion.div
+                                  animate={{ rotate: isExpand ? 90 : 0 }}
+                                  transition={{
+                                    ease: [0.19, 1, 0.22, 1],
+                                    delay: 0.16,
+                                  }}
+                                  className={`w-10 h-10 flex justify-center items-center ${
+                                    isExpand
+                                      ? "bg-slate-100/20 hover:bg-red-400"
+                                      : "bg-slate-200 hover:bg-slate-300"
+                                  } rounded-full`}
+                                >
+                                  {isExpand ? (
+                                    <X className="text-xl" />
+                                  ) : (
+                                    <ArrowsOutSimple className="text-xl" />
+                                  )}
+                                </motion.div>
+                              </button>
+                            </div>
+
+                            {isExpand ? (
+                              <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.45 }}
+                                className="text-slate-950"
+                              >
+                                <p ref={textRef} className="mt-2">
+                                  Lorem ipsum dolor sit amet consectetur,
+                                  adipisicing elit. Dolores consectetur
+                                  voluptate beatae blanditiis
+                                </p>
+
+                                <ul className="flex items-center gap-3 mt-3">
+                                  {Array.from({ length: 3 }).map((_, idx) => (
+                                    <li key={idx}>
+                                      <div className="w-10 h-10 bg-red-300 rounded-full"></div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
+                            ) : null}
+                          </motion.div>
+                          <button className="text-xl font-semibold self-end flex items-center gap-3 bg-white rounded-2xl px-6 h-[60px]">
+                            Visit <ArrowUpRight />
                           </button>
                         </div>
-
-                        {isExpand ? (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.45 }}
-                            className="text-slate-950"
-                          >
-                            <p ref={textRef} className="mt-2">
-                              Lorem ipsum dolor sit amet consectetur,
-                              adipisicing elit. Dolores consectetur voluptate
-                              beatae blanditiis
-                            </p>
-
-                            <ul className="flex items-center gap-3 mt-3">
-                              {Array.from({ length: 3 }).map((_, idx) => (
-                                <li key={idx}>
-                                  <div className="w-10 h-10 bg-red-300 rounded-full"></div>
-                                </li>
-                              ))}
-                            </ul>
-                          </motion.div>
-                        ) : null}
-                      </motion.div>
+                      </div>
                     </div>
                   </div>
                 </li>
               ))}
             </ul>
-          </div>
+          </div>            
         </div>
       </section>
     </div>

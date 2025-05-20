@@ -42,15 +42,15 @@ const Services = () => {
     sections.forEach((el, idx) => {
       gsap.fromTo(
         el,
-        { x: "120%" },
+        { x: `150%` },
         {
           x: "0%",
           scrollTrigger: {
             trigger: el,
             start: "top 120%",
             end: "top 60%",
-            scrub: 1.5,
-            ease: "circ.inout",
+            scrub: 1.7,
+            ease: "expo.out",
           },
         }
       );
@@ -60,7 +60,7 @@ const Services = () => {
           trigger: el,
           start: "top 10%",
           end: "top 20%",
-          scrub: 1.2,
+          scrub: 1.4,
           onUpdate: (self) => {
             const currentProgress = self.progress;
             const lastProgress = lastProgressMap.get(el) || 0;

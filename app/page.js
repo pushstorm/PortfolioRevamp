@@ -8,9 +8,10 @@ import ImgParallax from "./App_chunks/imgParallax.jsx";
 import About from "./App_chunks/About.jsx";
 import Services from "./App_chunks/Services.jsx";
 import Footer from "./App_chunks/Footer.jsx";
-import HorizontalScroll from "./App_chunks/horizontalScroll";
+
 import Hero from "./App_chunks/hero.jsx";
 import { useLoading } from "./Context/LoadingContext";
+import SlideAnimation from "./App_chunks/slideAnimation.jsx";
 const Page = () => {
   const { isLoading, setIsLoading } = useLoading();
 
@@ -24,7 +25,7 @@ const Page = () => {
             <About /> 
             <ImgParallax />
             <Services />
-            <HorizontalScroll />
+            <SlideAnimation />
             <Footer />
           </>
         ) : (

@@ -3,8 +3,10 @@ import ReactLenis from "lenis/react";
 import Header from "./App_chunks/header";
 import { Pacifico } from "next/font/google";
 import Backtotop from "./App_chunks/Backtotop";
+import Scrollbar from "./App_chunks/scroll-bar";
 import HeroBG from "./App_chunks/heroBG";
 import { LoadingProvider } from "./Context/LoadingContext.jsx";
+
 export const metadata = {
   title: "Protfolio Faheem",
   description: "Portfolio",
@@ -26,20 +28,22 @@ export default function RootLayout({ children }) {
         ></link>
       </head>
       <body className={` relative antialiased ${pacifico.variable}`}>
-      <LoadingProvider>
-      <Backtotop />
-      <HeroBG />
-      <ReactLenis
-        root
-        options={{
-          wheelMultiplier: 0.6, // default is 1, lower = slower scroll
-          smooth: true,
-        }}
-      >
-        <Header />
-        {children}
-      </ReactLenis>
-    </LoadingProvider>
+        <Scrollbar />
+        <LoadingProvider>
+          <Backtotop />
+          <HeroBG />
+          <ReactLenis
+            root
+            options={{
+              wheelMultiplier: 0.6, // default is 1, lower = slower scroll
+              smooth: true,
+            }}
+          >
+            <Header />
+
+            {children}
+          </ReactLenis>
+        </LoadingProvider>
       </body>
     </html>
   );
