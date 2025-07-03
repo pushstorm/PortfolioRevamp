@@ -320,12 +320,12 @@ const SliderA = () => {
         >
           <div className="overflow-hidden">
             <div
-              width={{
+              style={{
                 height: textContainerHeight
-                  ? textContainerHeight - linkBtnHeight
+                  ? textContainerHeight
                   : 0,
               }}
-              className="!mb-3 w-[390px] rounded-xl overflow-hidden aspect-video relative"
+              className="!mb-3  rounded-xl overflow-hidden aspect-video relative"
             >
               <div className="w-full h-full absolute inset-0 bg-slate-900/20 z-20" />
               {projects.map((project, index) => (
@@ -346,22 +346,12 @@ const SliderA = () => {
                     ref={(el) => (imgRefs.current[index] = el)}
                     src={project.src}
                     alt=""
-                    className="reveal-img w-full h-full object-cover"
+                    className="reveal-img w-full h-full object-fit"
                   />
                 </div>
               ))}
             </div>
-            <div
-              ref={linkBtnRef}
-              className="flex items-center gap-2 justify-center"
-            >
-              <Link
-                className="text-3xl relative"
-                href={projects[scrollActiveIndex].link}
-              >
-                <RotatingHeader text={"Visit site"} />
-              </Link>
-            </div>
+       
           </div>
         </div>
 
