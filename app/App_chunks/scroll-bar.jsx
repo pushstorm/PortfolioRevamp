@@ -1,60 +1,62 @@
 "use client";
-import {
-  motion,
-  useMotionValue,
-  useScroll,
-} from "motion/react";
-import { useEffect, useRef, useState } from "react";
+
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import Draggable from "gsap/Draggable";
+import { useEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger, Draggable);
 
 const Scrollbar = () => {
-  const constraintsRef = useRef(null);
-  const { scrollYProgress } = useScroll();
-  const [viewportHeight, setViewportHeight] = useState(0);
-  const [scrollHeight, setScrollHeight] = useState(0);
-
-  const y = useMotionValue(0);
+  const circleRef = useRef(null);
+  const scrollBarRef = useRef(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      setViewportHeight(window.innerHeight);
-      setScrollHeight(document.body.scrollHeight);
+    if (!circleRef.current || !scrollBarRef.current) return;
+
+    // Animate circle on scroll
+    gsap.to(circleRef.current, {
+      y: 250,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+      },
+    });
+
+    // Make circle draggable
+    Draggable.create(circleRef.current, {
+      type: "y",
+      bounds: scrollBarRef.current,
+      inertia: true,
+      onDrag() {
+        const scrollBarHeight = 250;
+        const scrollHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const percent = this.y / scrollBarHeight;
+        const to = scrollHeight * percent;
+        window.scrollTo({ top: to });
+      },
+    });
+
+    return () => {
+      ScrollTrigger.killAll();
+      Draggable.get(circleRef.current)?.kill();
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    return scrollYProgress.on("change", (progress) => {
-      const maxScroll = scrollHeight - viewportHeight;
-      const thumbMaxY = viewportHeight - 100; // 100 is thumb height
-      y.set(progress * thumbMaxY);
-    });
-  }, [scrollYProgress, viewportHeight, scrollHeight, y]);
-
-  // Drag to scroll page
-  const handleDrag = (_, info) => {
-    const thumbMaxY = viewportHeight - 100;
-    const scrollMax = scrollHeight - viewportHeight;
-    const progress = info.point.y / thumbMaxY;
-    window.scrollTo(0, progress * scrollMax);
-  };
-
   return (
-    <motion.div
-      className="fixed py-[.3rem] top-0 hover:bg-slate-600/10 right-0 w-[20px] h-screen z-[999] block"
-      ref={constraintsRef}
+    <div
+      ref={scrollBarRef}
+      className="fixed top-0 right-0 w-[20px] h-screen z-[999] pointer-events-none"
     >
-      <motion.div
-        drag="y"
-        dragConstraints={constraintsRef}
-        dragElastic={0}
-        dragMomentum={false}
-        onDrag={handleDrag}
-        style={{ y }}
-        className="w-[10px] bg-black rounded-full h-[100px] mx-auto py-2"
-      ></motion.div>
-    </motion.div>
+      <div
+        ref={circleRef}
+        className="w-[10px] h-[100px] bg-black rounded-full mx-auto cursor-grab active:cursor-grabbing pointer-events-auto"
+      />
+    </div>
   );
 };
 

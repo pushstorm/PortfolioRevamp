@@ -30,15 +30,14 @@ const Hero = () => {
       },
     }),
   };
- 
+
   return (
     <React.Fragment>
-      { /* 64 px  */}
+      {/* 64 px  */}
       <div
-        className={`w-full relative overflow-hidden lg:h-[38vh] xl:h-[calc(100vh-50px)]`} 
+        className={`w-full relative overflow-hidden lg:h-[38vh] xl:h-[calc(100vh-50px)]`}
         id="heroSectionBG"
       >
-       
         <div className="container  grid grid-rows-3 mt-3 h-full">
           {heroText.map((text, idx) => (
             <motion.h1
@@ -77,6 +76,6 @@ const Hero = () => {
       </div>
     </React.Fragment>
   );
-}
+};
 
 export default Hero;

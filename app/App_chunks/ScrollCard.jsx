@@ -67,8 +67,7 @@ export default function ScrollCardProject() {
   };
 
   return (
-    <section >
-      
+    <section>
       <div ref={sectionRef} style={{ backgroundColor: bgColor }}>
         <div ref={container}>
           {projects.map((project, i) => {
