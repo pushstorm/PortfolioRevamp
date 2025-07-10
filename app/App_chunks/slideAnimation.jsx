@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import "keen-slider/keen-slider.min.css";
 import RotatingHeader from "./rotating-Text.jsx";
-import {motion} from "motion/react";
+import { motion } from "motion/react";
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
@@ -68,7 +68,6 @@ const projects = [
 
 const SliderA = () => {
   const containerRef = useRef(null);
-  const text = useRef(null);
   const holderRefs = useRef([]);
   const imgRefs = useRef([]);
   const [scrollActiveIndex, setScrollActiveIndex] = React.useState(0);
@@ -82,7 +81,7 @@ const SliderA = () => {
     let ctx = gsap.context(() => {
       gsap.set(containerRef.current, { opacity: 1 });
 
-      const split = SplitText.create(text.current, {
+      const split = SplitText.create(".textAnimate", {
         type: "words",
         aria: "hidden",
       });
@@ -91,11 +90,11 @@ const SliderA = () => {
         y: 200,
         rotate: 14,
         ease: "elastic.out(.3,0.45)",
-        stagger: 0.06,
-        duration: 1,
-        delay: 0.2,
+        stagger: 0.07,
+        duration: 1.4,
+        delay: 0.25,
         scrollTrigger: {
-          trigger: text.current,
+          trigger: "textAnimate",
           start: "top 80%",
           end: "top 20%",
         },
@@ -270,7 +269,7 @@ const SliderA = () => {
     }, containerRef);
     return () => ctx.revert();
   }, []);
-
+  console.log(scrollActiveIndex);
   return (
     <section
       ref={containerRef}
@@ -281,8 +280,8 @@ const SliderA = () => {
         <div className="w-full h-full z-20 absolute inset-0 bg-slate-900/60" />
         <div className="absolute  top-1/3 -translate-y-1/2 left-1/2 -translate-x-1/2  opacity-60 z-20">
           <h2
-            ref={text}
-            className="text-center text-6xl overflow-hidden tracking-tighter"
+            key={scrollActiveIndex}
+            className="textAnimate text-center text-6xl overflow-hidden tracking-tighter"
           >
             {projects[scrollActiveIndex].headText}
           </h2>
@@ -321,9 +320,7 @@ const SliderA = () => {
           <div className="overflow-hidden">
             <div
               style={{
-                height: textContainerHeight
-                  ? textContainerHeight
-                  : 0,
+                height: textContainerHeight ? textContainerHeight : 0,
               }}
               className="!mb-3  rounded-xl overflow-hidden aspect-video relative"
             >
@@ -351,7 +348,6 @@ const SliderA = () => {
                 </div>
               ))}
             </div>
-       
           </div>
         </div>
 
@@ -362,7 +358,7 @@ const SliderA = () => {
           {projects.map((title, id) => (
             <motion.button
               animate={{ x: scrollActiveIndex === id ? "-30%" : "0%" }}
-              transition={{ease:[0.175, 0.885, 0.32, 1.1], duration: 0.5}}
+              transition={{ ease: [0.175, 0.885, 0.32, 1.1], duration: 0.5 }}
               key={id}
               onClick={() => scrollToProjectIndex(id)}
               className={`${
