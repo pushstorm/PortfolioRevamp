@@ -7,12 +7,22 @@
 /* styles.css */
 
 body {
-  background-color: 	#FAF5FF;
+  background-color: #faf5ff;
   position: relative;
   overflow-x: hidden;
-
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   display: none;
+}
+progress::-webkit-progress-bar {
+  background-color: rgba(0, 0, 0, 0.156); /* remove default grey */
+}
+
+progress::-webkit-progress-value {
+  background-color: black; /* for Chrome, Safari */
+}
+
+progress::-moz-progress-bar {
+  background-color: black; /* for Firefox */
 }

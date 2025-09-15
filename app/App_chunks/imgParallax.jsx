@@ -50,15 +50,15 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
-      <div ref={gallery} className={"gallery lg:h-[110vh] xl:h-[175vh] bg-slate-950"}>
+    <section >
+      <div ref={gallery} data-bg="dark" className={"gallery lg:h-[110vh] xl:h-[175vh] bg-slate-950"}>
         <Column images={[images[0], images[1], images[2], images[6]]} y={y} />
         <Column images={[images[3], images[4], images[5], images[9]]} y={y2} />
         <Column images={[images[6], images[7], images[8], images[0]]} y={y3} />
         <Column images={[images[9], images[10], images[11], images[3]]} y={y4} />
       </div>
        
-    </main>
+    </section>
   );
 }
 

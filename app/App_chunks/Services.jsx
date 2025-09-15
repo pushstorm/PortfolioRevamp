@@ -1,9 +1,9 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, use } from "react";
 import React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import "../globals.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const Services = () => {
@@ -30,13 +30,15 @@ const Services = () => {
     "Collaboration & Real-Time Editing",
     "Figma Plugins & API Integrations",
   ];
-
+  const lineRef = useRef(null);
   const containerRef = useRef(null);
   const titles = ["Next.js", "React.js", "Figma"];
   const titleContainerRef = useRef(null);
+  const servicesRef = useRef(null);
+  const dotRefs = useRef([]);
   useEffect(() => {
     const sections = gsap.utils.toArray(".service-text");
-    let accumulatedProgress = 0; // Track total movement
+    let accumulatedProgress = 0;
     let lastProgressMap = new Map(); // Track progress for each "space" separately
 
     sections.forEach((el, idx) => {
@@ -66,15 +68,28 @@ const Services = () => {
             const lastProgress = lastProgressMap.get(el) || 0;
 
             if (currentProgress > lastProgress) {
-              // Scrolling DOWN: Add 33.33%
               accumulatedProgress -= 33.33;
             } else if (currentProgress < lastProgress) {
-              // Scrolling UP: Subtract 33.33%
               accumulatedProgress += 33.33;
             }
+            const currentIndex = Math.round(
+              Math.abs(accumulatedProgress / 33.33)
+            );
+            dotRefs.current.forEach((dot, i) => {
+              if (!dot) return;
 
-            lastProgressMap.set(el, currentProgress); // Update individual section progress
+              if (i <= currentIndex) {
+                // All previous & current stay colored
+                dot.style.backgroundColor = "black";
+                dot.style.color = "white";
+              } else {
+                // Future dots are uncolored
+                dot.style.backgroundColor = "white";
+                dot.style.color = "black";
+              }
+            });
 
+            lastProgressMap.set(el, currentProgress);
             gsap.to(titleContainerRef.current, {
               y: `${accumulatedProgress}%`, // Moves title gradually
               opacity: 1,
@@ -86,19 +101,30 @@ const Services = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (titleContainerRef.current) {
+      gsap.to(lineRef.current, {
+        value: 100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: servicesRef.current,
+          scrub: 0.2,
+          start: "top 80%",
+          end: "bottom 20%",
+        },
+      });
+    }
+  }, []);
+
   return (
     <div ref={containerRef} className="">
       <div className="grid py-32 grid-cols-2 gap-32  container relative">
         <div className="w-[1px] bg-black h-full absolute top-0 left-1/2 -translate-x-1/2" />
         {/* Left Text Section */}
         <div className="sticky pt-14 pb-24 h-fit top-0 left-0">
-          <h3 className="text-3xl font-Satoshi">Technology Stack</h3>
-          <div className="relative overflow-hidden mt-3">
-            <h1 className=" text-6xl invisible py-1 font-WorkSans">
-              Invisible Text
-            </h1>
-
-            <div ref={titleContainerRef} className="absolute top-0 left-0">
+          <h3 className="text-3xl font-Satoshi ">Technology Stack</h3>
+          <div className="relative overflow-hidden mt-3 h-[72px]">
+            <div ref={titleContainerRef} className=" absolute top-0 left-0">
               {titles.map((title, idx) => {
                 return (
                   <h1 className=" text-6xl py-1 font-WorkSans" key={idx}>
@@ -107,6 +133,23 @@ const Services = () => {
                 );
               })}
             </div>
+          </div>
+          <div className="flex items-center justify-between w-48 mt-3 relative">
+            <progress
+              ref={lineRef}
+              max={"100"}
+              value={"0"}
+              className="w-full  w3-red h-[1px] origin-left absolute top-1/2 -translate-y-1/2  left-0 "
+            />
+            {titles.map((_, idx) => (
+              <div
+                ref={(el) => (dotRefs.current[idx] = el)}
+                key={idx}
+                className={`  flex justify-center  relative z-10 font-[600] font-Cabinet items-center w-7 ${idx == 0 ? 'bg-black text-white' : 'bg-white text-black'} h-7 rounded-full`}
+              >
+                {idx + 1}
+              </div>
+            ))}
           </div>
 
           <p className="mt-2">
@@ -124,7 +167,7 @@ const Services = () => {
         </div>
 
         {/* Right Animated List */}
-        <div className=" py-14 overflow-hidden">
+        <div ref={servicesRef} className=" py-14 overflow-hidden">
           {services.map((service, idx) =>
             service === "space" ? (
               <div key={idx} className="my-10 service-text w-full h-1 relative">

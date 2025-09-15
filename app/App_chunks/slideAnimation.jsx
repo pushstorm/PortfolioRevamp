@@ -269,7 +269,7 @@ const SliderA = () => {
     }, containerRef);
     return () => ctx.revert();
   }, []);
-  console.log(scrollActiveIndex);
+
   return (
     <section
       ref={containerRef}

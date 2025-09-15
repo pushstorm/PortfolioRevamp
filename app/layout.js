@@ -3,7 +3,6 @@ import ReactLenis from "lenis/react";
 import Header from "./App_chunks/header";
 import { Pacifico } from "next/font/google";
 import Backtotop from "./App_chunks/Backtotop";
-import Scrollbar from "./App_chunks/scroll-bar";
 import HeroBG from "./App_chunks/heroBG";
 import { LoadingProvider } from "./Context/LoadingContext.jsx";
 
@@ -28,9 +27,9 @@ export default function RootLayout({ children }) {
         ></link>
       </head>
       <body className={` relative antialiased ${pacifico.variable}`}>
-        <Scrollbar />
+      
         <LoadingProvider>
-          <Backtotop />
+          <Backtotop /> 
           <HeroBG />
           <ReactLenis
             root

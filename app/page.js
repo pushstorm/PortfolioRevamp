@@ -1,5 +1,6 @@
 "use client";
-import React, {  useState } from "react";
+import React from "react";
+import Scrollbar from "./App_chunks/scroll-bar";
 import "./locomotiveScroll.css";
 import Loading from "./App_chunks/Loading.jsx";
 import { Marquee } from "./App_chunks/Marquee.jsx";
@@ -8,7 +9,6 @@ import ImgParallax from "./App_chunks/imgParallax.jsx";
 import About from "./App_chunks/About.jsx";
 import Services from "./App_chunks/Services.jsx";
 import Footer from "./App_chunks/Footer.jsx";
-
 import Hero from "./App_chunks/hero.jsx";
 import { useLoading } from "./Context/LoadingContext";
 import SlideAnimation from "./App_chunks/slideAnimation.jsx";
@@ -21,6 +21,7 @@ const Page = () => {
         {!isLoading ? (
           <>
             <Hero />
+            <Scrollbar />
             <Marquee />
             <About /> 
             <ImgParallax />
